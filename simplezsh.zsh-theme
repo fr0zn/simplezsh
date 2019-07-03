@@ -1,14 +1,15 @@
-if [ $UID -eq 0 ]; then NCOLOR="105"; else NCOLOR="120"; fi
-return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
+local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
+local jobs_bg="$fg_bold[red][fg: %j]%{$reset_color%}"
+
+local _username="%n "
+local _dir="$FG[032]%1~"
+local _info="%1(j.$jobs_bg.) "
+local _prompt="$FG[120]%(!.#.$)%{$reset_color%}"
 
 # primary prompt
-PROMPT='$FG[032]%~\
-$(git_prompt_info) \
-$FG[$NCOLOR]%(!.#.»)%{$reset_color%} '
-#$FG[105]%(!.#.»)%{$reset_color%} '
+PROMPT='${_username}${_dir}$(git_prompt_info)${_info}${_prompt} '
 PROMPT2='%{$fg[red]%}\ %{$reset_color%}'
 RPS1='${return_code}'
-
 
 # color vars
 eval my_gray='$FG[237]'
